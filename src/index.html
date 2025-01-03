@@ -1,17 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Controller Front</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+    </style>
 </head>
-
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
 
+<div class="container">
+    <h1>API Controller Front</h1>
+
+    <!-- Greet API Form -->
+    <div class="form-group">
+        <h2>Greet Endpoint</h2>
+        <label for="greet-name">Enter your name:</label>
+        <input type="text" id="greet-name" placeholder="Your name">
+        <button onclick="callGreetApi()">Send</button>
+    </div>
+    <div id="greet-response" class="response"></div>
+
+    <!-- Pokemon API Form -->
+    <div class="form-group">
+        <h2>Pokemon Endpoint</h2>
+        <label for="pokemon-name">Enter Pokemon name:</label>
+        <input type="text" id="pokemon-name" placeholder="Pokemon name">
+        <button onclick="callPokemonApi()">Send</button>
+    </div>
+    <div id="pokemon-response" class="response"></div>
+</div>
+
+<script>
+    function callGreetApi() {
+        const name = document.getElementById('greet-name').value;
+        const url = `/api/greet?name=${encodeURIComponent(name)}`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('greet-response').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('greet-response').textContent = `Error: ${error.message}`;
+            });
+    }
+
+    function callPokemonApi() {
+        const name = document.getElementById('pokemon-name').value;
+        const url = `/api/pokemon?name=${encodeURIComponent(name)}`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('pokemon-response').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('pokemon-response').textContent = `Error: ${error.message}`;
+            });
+    }
+</script>
+
+</body>
 </html>
