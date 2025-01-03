@@ -79,7 +79,7 @@
 <script>
     function callGreetApi() {
         const name = document.getElementById('greet-name').value;
-        const url = `/api/greet?name=${encodeURIComponent(name)}`;
+        const url = `https://group10-back-fzckevgsa9fshch4.francecentral-01.azurewebsites.net/api/greet?name=${encodeURIComponent(name)}`;
 
         fetch(url)
             .then(response => {
@@ -98,7 +98,7 @@
 
     function callPokemonApi() {
         const name = document.getElementById('pokemon-name').value;
-        const url = `/api/pokemon?name=${encodeURIComponent(name)}`;
+        const url = `https://group10-back-fzckevgsa9fshch4.francecentral-01.azurewebsites.net/api/pokemon?name=${encodeURIComponent(name)}`;
 
         fetch(url)
             .then(response => {
